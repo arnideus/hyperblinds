@@ -1,0 +1,135 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+
+# CONSTRICTOR EFFECT
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+if G.GAME.blind.name == 'The Serpent' and
+    not G.GAME.blind.disabled and
+    (G.GAME.current_round.hands_played > 0 or
+    G.GAME.current_round.discards_used > 0) then
+        hand_space = math.min(#G.deck.cards, 3)
+end
+'''
+position = "after"
+payload = '''
+if G.GAME.blind.name == 'bl_hype_constrictor' and
+    (G.GAME.current_round.hands_played > 0 or
+    G.GAME.current_round.discards_used > 0) then
+        hand_space = math.min(#G.deck.cards, 1)
+end
+'''
+match_indent = true
+times = 1   
+
+# JAWLINE EFFECT
+[[patches]]
+[patches.pattern]
+target = "back.lua"
+pattern = '''
+end
+
+function Back:apply_to_run()
+'''
+position = "before"
+payload = '''
+    if G.GAME.blind.name == 'bl_hype_jawline' and args.context == 'final_scoring_step' then
+        args.chips = args.chips/(G.GAME.dollars + (G.GAME.dollar_buffer or 0))
+        args.mult = args.mult/(G.GAME.dollars + (G.GAME.dollar_buffer or 0))
+        update_hand_text({delay = 0}, {mult = args.mult, chips = args.chips})
+        G.E_MANAGER:add_event(Event({
+            func = (function()
+                play_sound('gong', 0.94, 0.3)
+                play_sound('gong', 0.94*1.5, 0.2)
+                play_sound('tarot1', 1.5)
+                ease_colour(G.C.UI_CHIPS, {0.15, 0.5 , 0.7, 1})
+                ease_colour(G.C.UI_MULT,  {0.70, 0.35, 0.3, 1})
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    blockable = false,
+                    blocking = false,
+                    delay =  4.3,
+                    func = (function() 
+                            ease_colour(G.C.UI_CHIPS, G.C.BLUE, 2)
+                            ease_colour(G.C.UI_MULT, G.C.RED, 2)
+                        return true
+                    end)
+                }))
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    blockable = false,
+                    blocking = false,
+                    no_delete = true,
+                    delay =  6.3,
+                    func = (function() 
+                        G.C.UI_CHIPS[1], G.C.UI_CHIPS[2], G.C.UI_CHIPS[3], G.C.UI_CHIPS[4] = G.C.BLUE[1], G.C.BLUE[2], G.C.BLUE[3], G.C.BLUE[4]
+                        G.C.UI_MULT[1], G.C.UI_MULT[2], G.C.UI_MULT[3], G.C.UI_MULT[4] = G.C.RED[1], G.C.RED[2], G.C.RED[3], G.C.RED[4]
+                        return true
+                    end)
+                }))
+                return true
+            end)
+        }))
+        delay(0.6)
+        return args.chips, args.mult
+    end
+        
+'''
+match_indent = true
+times = 1
+
+
+# MARBLE EFFECT (DOESNT WORK YET)
+[[patches]]
+[patches.pattern]
+
+
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''G.hand.highlighted[i].ability.played_this_ante = true'''
+position = "after"
+payload = '''
+hb_played_ever = true
+'''
+match_indent = true
+times = 1
+
+
+
+
+# BEAR EFFECT (DOESNT WORK)
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''
+blind_ante = 1,
+'''
+position = "after"
+payload = '''
+hb_bear_money = 0,
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+for k, v in ipairs(G.playing_cards) do
+    v.ability.played_this_ante = nil
+end
+'''
+position = "after"
+payload = '''
+G.GAME.round_resets.hb_bear_money = -G.GAME.dollars
+print("ass")
+'''
+match_indent = true
+times = 1
+
