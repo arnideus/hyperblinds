@@ -84,8 +84,6 @@ times = 1
 
 
 # MARBLE EFFECT (DOESNT WORK YET)
-[[patches]]
-[patches.pattern]
 
 
 
@@ -95,7 +93,7 @@ target = "functions/state_events.lua"
 pattern = '''G.hand.highlighted[i].ability.played_this_ante = true'''
 position = "after"
 payload = '''
-hb_played_ever = true
+G.hand.highlighted[i].ability.hb_played_ever = true
 '''
 match_indent = true
 times = 1
@@ -128,7 +126,6 @@ end
 position = "after"
 payload = '''
 G.GAME.round_resets.hb_bear_money = -G.GAME.dollars
-print("ass")
 '''
 match_indent = true
 times = 1
