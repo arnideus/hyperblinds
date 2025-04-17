@@ -116,7 +116,7 @@ SMODS.Blind({
         return { }
     end,
     debuff_card = function(self, card, from_blind)
-        if card.base.times_played ~= 0 then
+        if card.ability.hb_played_ever then
             return true
         end
     end,
