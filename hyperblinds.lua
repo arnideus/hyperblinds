@@ -80,7 +80,7 @@ SMODS.Blind({
     },
     key = 'summit',
     atlas = 'hyperatlas',
-    pos = {x = 0, y = 0},
+    pos = {x = 0, y = 1},
     dollars = 5,
     mult = 16,
     boss = {min = 9, max = 10},
