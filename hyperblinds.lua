@@ -7,7 +7,6 @@
 ----------------------------------------------
 ------------MOD CODE -------------------------
 
---NOTHING IS COMPATIBLE WITH MATADOR CHANGE IT!!!!!!!!!!!!!!!!!!!!!!
 SMODS.Atlas({
     key = 'hyperatlas',
     path = 'blinds.png',
@@ -56,6 +55,7 @@ SMODS.Blind({
 
         G.E_MANAGER:add_event(Event({ func = function()
         if any_selected then
+            self.triggered = true
             for i=#G.hand.highlighted, 1, -1 do
                 local card = G.hand.highlighted[i]
                 if card.ability.name == 'Glass Card' then 
@@ -107,7 +107,7 @@ SMODS.Blind({
     dollars = 5,
     mult = 2,
     boss = {min = 9, max = 10},
-    boss_colour = HEX('AC66CF'),
+    boss_colour = HEX('646464'),
     config = { },
     loc_vars = function(self, info_queue, card)
         return { }
@@ -212,6 +212,7 @@ SMODS.Blind({
 })
 
 SMODS.Blind({
+    --psychic
     ---todo bugtest this with hand size changes mid round
     loc_txt = {
         name = 'HB-555 "THAUMATURGE"',
@@ -239,6 +240,47 @@ SMODS.Blind({
     end,
     defeat = function(self)
         G.hand:change_size(self.config.old_hand_size - 5)
+    end,
+})
+
+SMODS.Blind({
+    ---arm
+    --it would be cool to have it list all hands contained within the played hand and THEN do the level down animation but idc enough to do it rn maybe later
+    loc_txt = {
+        name = 'HB-963 "APPENDAGE"',
+        text = { 'Sets the level of all', 'poker hands contained', 'within played hand to 1' }
+    },
+    key = 'appendage',
+    atlas = 'hyperatlas',
+    pos = {x = 0, y = 0},
+    dollars = 5,
+    mult = 2,
+    boss = {min = 9, max = 10},
+    boss_colour = HEX('646464'),
+    config = { },
+    loc_vars = function(self, info_queue, card)
+        return { }
+    end,
+    collection_loc_vars = function(self)
+        return { }
+    end,
+    debuff_hand = function(self, cards, hand, handname, check)
+
+        if not check then
+            to_big = to_big or function(x) return x end
+            local poker_hands = evaluate_poker_hand(cards)
+            for k,v in ipairs(G.handlist) do
+                if next(poker_hands[v]) then
+                    if (G.GAME.hands[v].level > to_big(1)) then
+                        self.triggered = true
+                        level_up_hand(G.GAME.blind.children.animatedSprite, v, (handname ~= v), 1-G.GAME.hands[v].level)
+                        G.GAME.blind:wiggle()
+                        --print(v)
+                    end
+                    
+                end
+            end
+        end
     end,
 })
 
@@ -298,6 +340,9 @@ SMODS.Blind({
         end
     end
 })
+
+
+
 
 SMODS.Blind({
     --the serpent
@@ -495,6 +540,7 @@ SMODS.Blind({
     end,
     debuff_hand = function(self, cards, hand, handname, check)
         if G.GAME.current_round.hands_played ~= self.config.chosen_hand and not check then
+            self.triggered = true
             return true
         end
     end,

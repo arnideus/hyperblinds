@@ -83,10 +83,7 @@ match_indent = true
 times = 1
 
 
-# MARBLE EFFECT (DOESNT WORK YET)
-
-
-
+# MARBLE EFFECT
 [[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
@@ -97,8 +94,6 @@ G.hand.highlighted[i].ability.hb_played_ever = true
 '''
 match_indent = true
 times = 1
-
-
 
 
 # BEAR EFFECT (DOESNT WORK)
