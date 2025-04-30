@@ -421,30 +421,6 @@ SMODS.Blind({
 })
 
 
-
-SMODS.Blind({
-    loc_txt = {
-        name = 'HB-076 "JAWLINE"',
-        text = { 'Final Chips and Mult','are divided by your $' }
-    },
-    key = 'jawline',
-    atlas = 'hyperatlas',
-    pos = {x = 0, y = 0},
-    dollars = 5,
-    mult = 3,
-    boss = {min = 9, max = 10},
-    boss_colour = HEX('646464'),
-    config = { },
-    loc_vars = function(self, info_queue, card)
-        return { }
-    end,
-    collection_loc_vars = function(self)
-        return { }
-    end,
-    
-})
-
-
 SMODS.Blind({
     --the mark
     loc_txt = {
@@ -472,6 +448,115 @@ SMODS.Blind({
             end
         end
     end
+})
+
+
+SMODS.Blind({
+    --tooth
+    loc_txt = {
+        name = 'HB-076 "JAWLINE"',
+        text = { 'Final Chips and Mult','are divided by your $' }
+    },
+    key = 'jawline',
+    atlas = 'hyperatlas',
+    pos = {x = 0, y = 0},
+    dollars = 5,
+    mult = 3,
+    boss = {min = 9, max = 10},
+    boss_colour = HEX('646464'),
+    config = { },
+    loc_vars = function(self, info_queue, card)
+        return { }
+    end,
+    collection_loc_vars = function(self)
+        return { }
+    end,
+    
+})
+
+SMODS.Blind({
+    loc_txt = {
+        name = 'HB-111 "STRIKEFORCE"',
+        text = { 'Destroys all triggered', 'Rare Jokers' }
+    },
+    key = 'strikeforce',
+    atlas = 'hyperatlas',
+    pos = {x = 0, y = 0},
+    dollars = 5,
+    mult = 3,
+    boss = {min = 9, max = 10},
+    boss_colour = HEX('646464'),
+    config = { },
+    loc_vars = function(self, info_queue, card)
+        return { }
+    end,
+    collection_loc_vars = function(self)
+        return { }
+    end,
+})
+
+SMODS.Blind({
+    loc_txt = {
+        name = 'HB-004 "TESSERACT"',
+        text = { 'Destroys all triggered', 'Common Jokers' }
+    },
+    key = 'tesseract',
+    atlas = 'hyperatlas',
+    pos = {x = 0, y = 0},
+    dollars = 5,
+    mult = 3,
+    boss = {min = 9, max = 10},
+    boss_colour = HEX('646464'),
+    config = { },
+    loc_vars = function(self, info_queue, card)
+        return { }
+    end,
+    collection_loc_vars = function(self)
+        return { }
+    end,
+})
+
+SMODS.Blind({
+    loc_txt = {
+        name = 'HB-363 "HURRICANE"',
+        text = { 'Destroys all triggered', 'Uncommon Jokers' }
+    },
+    key = 'hurricane',
+    atlas = 'hyperatlas',
+    pos = {x = 0, y = 0},
+    dollars = 5,
+    mult = 3,
+    boss = {min = 9, max = 10},
+    boss_colour = HEX('646464'),
+    config = { },
+    loc_vars = function(self, info_queue, card)
+        return { }
+    end,
+    collection_loc_vars = function(self)
+        return { }
+    end,
+})
+
+
+SMODS.Blind({
+    loc_txt = {
+        name = 'HB-678 "TACK"',
+        text = { 'Destroys all triggered', 'Epic or rarer Jokers' }
+    },
+    key = 'tack',
+    atlas = 'hyperatlas',
+    pos = {x = 0, y = 0},
+    dollars = 5,
+    mult = 3,
+    boss = {min = 9, max = 10},
+    boss_colour = HEX('646464'),
+    config = { },
+    loc_vars = function(self, info_queue, card)
+        return { }
+    end,
+    collection_loc_vars = function(self)
+        return { }
+    end,
 })
 
 
